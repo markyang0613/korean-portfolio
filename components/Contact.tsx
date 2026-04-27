@@ -45,7 +45,7 @@ export default function Contact({ lang }: ContactProps) {
         style={{ background: '#00f5ff' }}
       />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-16 relative z-10">
+      <div className="section-inner relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

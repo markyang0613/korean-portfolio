@@ -48,6 +48,46 @@ main {
   display: block;
 }
 
+/* ─── Section centering — pure CSS, no Tailwind ─── */
+.section-inner {
+  width: 100%;
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+@media (min-width: 768px) {
+  .section-inner {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+@media (min-width: 1280px) {
+  .section-inner {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+
+/* Timeline card gap from center line */
+.timeline-left {
+  padding-right: 4rem;
+}
+.timeline-right {
+  padding-left: 4rem;
+}
+@media (min-width: 1024px) {
+  .timeline-left  { padding-right: 5rem; }
+  .timeline-right { padding-left:  5rem; }
+}
+
+/* Chat bubble padding */
+.chat-bubble-user,
+.chat-bubble-bot {
+  padding: 0.875rem 1.25rem;
+}
+
 @media (max-width: 768px) {
   body { cursor: auto; }
   #custom-cursor, #custom-cursor-dot { display: none !important; }

@@ -195,7 +195,7 @@ export default function About({ lang }: AboutProps) {
 
   return (
     <section id="about" ref={ref} className="w-full py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16">
+      <div className="section-inner">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}

@@ -71,12 +71,12 @@ function ExpCard({ exp, idx, inView, lang }: ExpCardProps) {
       </div>
 
       {/* Left cell — card when isLeft, empty when isRight */}
-      <div className={`${isLeft ? 'md:pr-10' : ''} flex items-start justify-end`}>
+      <div className={`flex items-start justify-end ${isLeft ? 'timeline-left' : ''}`}>
         {isLeft && <CardContent exp={exp} lang={lang} />}
       </div>
 
       {/* Right cell — card when isRight, empty when isLeft */}
-      <div className={`${!isLeft ? 'md:pl-10' : ''} flex items-start justify-start`}>
+      <div className={`flex items-start justify-start ${!isLeft ? 'timeline-right' : ''}`}>
         {!isLeft && <CardContent exp={exp} lang={lang} />}
       </div>
     </motion.div>
@@ -150,7 +150,7 @@ export default function Experience({ lang }: ExperienceProps) {
 
   return (
     <section id="experience" ref={ref} className="w-full py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16">
+      <div className="section-inner">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

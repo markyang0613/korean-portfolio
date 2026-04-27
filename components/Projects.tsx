@@ -180,7 +180,7 @@ export default function Projects({ lang }: ProjectsProps) {
 
   return (
     <section id="projects" ref={ref} className="w-full py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16">
+      <div className="section-inner">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}

@@ -27,7 +27,7 @@ export default function Education({ lang }: EducationProps) {
 
   return (
     <section id="education" ref={ref} className="w-full py-24" style={{ background: 'rgba(13,17,23,0.4)' }}>
-      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-16">
+      <div className="section-inner">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

@@ -58,7 +58,7 @@ export default function Navbar({ lang, onLangToggle, theme, onThemeToggle }: Nav
           scrolled ? 'glass-dark py-3' : 'py-5'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div className="section-inner flex items-center justify-between">
           {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}

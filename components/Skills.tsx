@@ -121,7 +121,7 @@ export default function Skills({ lang }: SkillsProps) {
     : categories.filter(c => c.id === activeCategory)
 
   return (
-    <section id="skills" ref={ref} className="py-24 px-4" style={{ background: 'rgba(13,17,23,0.4)' }}>
+    <section id="skills" ref={ref} className="py-24 px-6 sm:px-10 lg:px-16 w-full" style={{ background: 'rgba(13,17,23,0.4)' }}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div

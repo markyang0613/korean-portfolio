@@ -23,7 +23,7 @@ export default function Contact({ lang }: ContactProps) {
     <section
       id="contact"
       ref={ref}
-      className="py-24 px-4 relative overflow-hidden"
+      className="py-24 px-6 sm:px-10 lg:px-16 relative overflow-hidden w-full"
       style={{ background: 'rgba(13,17,23,0.5)' }}
     >
       {/* Background grid */}

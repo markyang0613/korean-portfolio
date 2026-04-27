@@ -143,7 +143,7 @@ export default function AIChat({ lang }: AIChatProps) {
   }
 
   return (
-    <section id="ai-chat" ref={ref} className="py-24 px-4 max-w-4xl mx-auto">
+    <section id="ai-chat" ref={ref} className="py-24 px-6 sm:px-10 lg:px-16 max-w-4xl mx-auto w-full">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -206,7 +206,7 @@ export default function AIChat({ lang }: AIChatProps) {
                   </div>
                 )}
                 <div
-                  className={`max-w-[80%] px-4 py-3 text-sm leading-relaxed ${
+                  className={`max-w-[80%] px-5 py-3.5 text-sm leading-relaxed ${
                     msg.role === 'user' ? 'chat-bubble-user text-white' : 'chat-bubble-bot text-gray-200'
                   }`}
                 >
@@ -227,7 +227,7 @@ export default function AIChat({ lang }: AIChatProps) {
                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#00f5ff] to-[#7c3aed] flex items-center justify-center text-sm flex-shrink-0">
                   🤖
                 </div>
-                <div className="chat-bubble-bot px-4 py-3 flex gap-1 items-center">
+                <div className="chat-bubble-bot px-5 py-3.5 flex gap-1 items-center">
                   {[0, 1, 2].map(i => (
                     <motion.div
                       key={i}

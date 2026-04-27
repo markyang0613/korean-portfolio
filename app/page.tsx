@@ -42,7 +42,7 @@ export default function Page() {
         onThemeToggle={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
       />
 
-      <main>
+      <main className="w-full">
         <Hero lang={lang} />
         <About lang={lang} />
         <Skills lang={lang} />

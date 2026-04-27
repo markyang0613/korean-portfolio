@@ -141,7 +141,7 @@ export default function Experience({ lang }: ExperienceProps) {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="experience" ref={ref} className="py-24 px-4 max-w-7xl mx-auto">
+    <section id="experience" ref={ref} className="py-24 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto w-full">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}

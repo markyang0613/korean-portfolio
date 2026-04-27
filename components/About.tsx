@@ -194,7 +194,7 @@ export default function About({ lang }: AboutProps) {
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="about" ref={ref} className="py-24 px-4 max-w-7xl mx-auto">
+    <section id="about" ref={ref} className="py-24 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto w-full">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}

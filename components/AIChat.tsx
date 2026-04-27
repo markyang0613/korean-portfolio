@@ -26,7 +26,7 @@ const QA_KO: Array<{ q: string[]; a: string }> = [
   },
   {
     q: ['연락', '연락처', '이메일', '이메일 주소'],
-    a: '연락하고 싶으시면 yangjoonseo0613@gmail.com으로 이메일 주세요! GitHub는 github.com/markyang0613에서 코드를 볼 수 있습니다. 서울과 오클랜드를 오가며 활동하고 있어요 📧',
+    a: '연락하고 싶으시면 myang7736@gmail.com으로 이메일 주세요! GitHub는 github.com/markyang0613에서 코드를 볼 수 있습니다. 서울과 오클랜드를 오가며 활동하고 있어요 📧',
   },
   {
     q: ['ai', '인공지능', 'claude', '어떤 ai'],
@@ -61,7 +61,7 @@ const QA_EN: Array<{ q: string[]; a: string }> = [
   },
   {
     q: ['contact', 'email', 'reach you'],
-    a: 'Reach me at yangjoonseo0613@gmail.com, or check my code at github.com/markyang0613. I split time between Seoul, Korea 🇰🇷 and Oakland, CA 🇺🇸 📧',
+    a: 'Reach me at myang7736@gmail.com, or check my code at github.com/markyang0613. I split time between Seoul, Korea 🇰🇷 and Oakland, CA 🇺🇸 📧',
   },
   {
     q: ['skills', 'tech', 'stack', 'tools'],
@@ -143,7 +143,8 @@ export default function AIChat({ lang }: AIChatProps) {
   }
 
   return (
-    <section id="ai-chat" ref={ref} className="py-24 px-6 sm:px-10 lg:px-16 max-w-4xl mx-auto w-full">
+    <section id="ai-chat" ref={ref} className="w-full py-24">
+      <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-16">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -277,6 +278,7 @@ export default function AIChat({ lang }: AIChatProps) {
           </div>
         </div>
       </motion.div>
+      </div>
     </section>
   )
 }

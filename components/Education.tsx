@@ -26,8 +26,8 @@ export default function Education({ lang }: EducationProps) {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="education" ref={ref} className="py-24 px-6 sm:px-10 lg:px-16 w-full" style={{ background: 'rgba(13,17,23,0.4)' }}>
-      <div className="max-w-5xl mx-auto">
+    <section id="education" ref={ref} className="w-full py-24" style={{ background: 'rgba(13,17,23,0.4)' }}>
+      <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-16">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

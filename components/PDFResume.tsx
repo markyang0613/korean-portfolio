@@ -24,7 +24,7 @@ export default function PDFResume() {
           데이터 엔지니어 · AI 네이티브 · UC Berkeley 데이터사이언스
         </div>
         <div className="contact-line" style={{ marginTop: 6 }}>
-          📧 yangjoonseo0613@gmail.com &nbsp;|&nbsp;
+          📧 myang7736@gmail.com &nbsp;|&nbsp;
           🐙 github.com/markyang0613 &nbsp;|&nbsp;
           📍 Seoul, Korea / Oakland, CA
         </div>
@@ -85,13 +85,23 @@ export default function PDFResume() {
 
       <div className="section" style={{ marginTop: 12 }}>
         <div className="row">
-          <h3>한신포차</h3>
-          <span className="sub">2020 – 2021</span>
+          <h3>Avellino Lab</h3>
+          <span className="sub">Sep. 2021 – Dec. 2021</span>
         </div>
-        <div className="sub">서비스 직원 · Seoul, Korea</div>
+        <div className="sub">데이터사이언스 인턴 (Data Science Intern) · Menlo Park, CA</div>
         <ul>
-          <li>약 1년간 고객 응대, 팀 협업, 압박 상황에서의 문제 해결 역량 개발</li>
+          <li>CNN과 Vision Transformer를 개발하여 X-ray 이미지·유전자 특성 기반 안암 발생 예측 모델 구현, Confusion Matrix 기반 88% 정확도 달성</li>
+          <li>AWS에 약 2GB의 환자 유전자 및 방사선 영상 데이터를 중앙화된 데이터베이스로 구축, 4명의 연구원에게 데이터 거버넌스 환경 제공</li>
+          <li>유전학자·방사선 전문의·소프트웨어 엔지니어 간 협업 조율로 200명 이상의 환자 안암 위험 예측 효율성 향상</li>
         </ul>
+        <div style={{ marginTop: 5 }}>
+          <span className="tag">Python</span>
+          <span className="tag">CNN</span>
+          <span className="tag">Vision Transformer</span>
+          <span className="tag">AWS</span>
+          <span className="tag">PyTorch</span>
+          <span className="tag">Medical Imaging</span>
+        </div>
       </div>
 
       {/* Education */}

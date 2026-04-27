@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 
-const EMAIL = 'yangjoonseo0613@gmail.com'
+const EMAIL = 'myang7736@gmail.com'
 
 interface ContactProps { lang: 'ko' | 'en' }
 
@@ -23,7 +23,7 @@ export default function Contact({ lang }: ContactProps) {
     <section
       id="contact"
       ref={ref}
-      className="py-24 px-6 sm:px-10 lg:px-16 relative overflow-hidden w-full"
+      className="w-full py-24 relative overflow-hidden"
       style={{ background: 'rgba(13,17,23,0.5)' }}
     >
       {/* Background grid */}
@@ -45,7 +45,7 @@ export default function Contact({ lang }: ContactProps) {
         style={{ background: '#00f5ff' }}
       />
 
-      <div className="max-w-4xl mx-auto relative z-10">
+      <div className="max-w-4xl mx-auto px-4 sm:px-8 lg:px-16 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

@@ -179,7 +179,8 @@ export default function Projects({ lang }: ProjectsProps) {
   const filtered = filter === 'all' ? projects : projects.filter(p => p.category === filter)
 
   return (
-    <section id="projects" ref={ref} className="py-24 px-6 sm:px-10 lg:px-16 max-w-7xl mx-auto w-full">
+    <section id="projects" ref={ref} className="w-full py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -231,6 +232,7 @@ export default function Projects({ lang }: ProjectsProps) {
           ))}
         </AnimatePresence>
       </motion.div>
+      </div>
     </section>
   )
 }

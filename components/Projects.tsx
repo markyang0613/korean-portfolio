@@ -175,7 +175,7 @@ const projects = [
     descEn: 'Analytics dashboard aggregating local marketplace health metrics (GMV, conversion rate, retention) with BigQuery and Looker Studio. Automated anomaly detection for key KPI monitoring.',
     tech: ['BigQuery', 'Python', 'Looker Studio', 'SQL', 'Data Analysis'],
     aiUsage: 85,
-    github: 'https://github.com/markyang0613/marketplace-analytics',
+    github: null,
     badge: '준비 중',
     color: '#39ff14',
     icon: '📈',

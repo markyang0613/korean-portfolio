@@ -12,24 +12,39 @@ const skills = [
   { name: 'Git/Docker', level: 80, color: '#00f5ff', desc: '버전 관리, 컨테이너화' },
 ]
 
-function CounterStat({ value, suffix = '', label }: { value: number; suffix?: string; label: string }) {
+function useCountUp(target: number, duration: number = 2000) {
   const [count, setCount] = useState(0)
   const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true })
 
   useEffect(() => {
-    if (!inView) return
-    let start = 0
-    const duration = 1500
-    const step = () => {
-      start += 50
-      const progress = Math.min(start / duration, 1)
-      setCount(Math.floor(progress * value))
-      if (progress < 1) requestAnimationFrame(step)
-      else setCount(value)
-    }
-    requestAnimationFrame(step)
-  }, [inView, value])
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          let start = 0
+          const increment = target / (duration / 16)
+          const timer = setInterval(() => {
+            start += increment
+            if (start >= target) {
+              setCount(target)
+              clearInterval(timer)
+            } else {
+              setCount(Math.floor(start))
+            }
+          }, 16)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.5 }
+    )
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [target, duration])
+
+  return { count, ref }
+}
+
+function CounterStat({ value, suffix = '', label }: { value: number; suffix?: string; label: string }) {
+  const { count, ref } = useCountUp(value)
 
   return (
     <div ref={ref} className="text-center">

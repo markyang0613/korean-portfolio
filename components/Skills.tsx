@@ -15,6 +15,7 @@ const categories = [
       { name: 'AWS Redshift', level: 78, detail: '클라우드 데이터 웨어하우스 쿼리' },
       { name: 'Snowflake', level: 82, detail: '멀티클라우드 데이터 플랫폼' },
       { name: 'AWS EC2', level: 75, detail: '서버 인프라, 배포 관리' },
+      { name: 'BigQuery', level: 75, detail: '대규모 SQL 분석, 파티셔닝 및 클러스터링 최적화' },
     ],
   },
   {

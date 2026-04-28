@@ -3,7 +3,25 @@
 import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 
-const projects = [
+interface Project {
+  id: number
+  title: string
+  titleKo: string
+  category: string
+  categoryLabel: string
+  size: string
+  descKo: string
+  descEn: string
+  tech: string[]
+  aiUsage: number
+  github: string | null
+  color: string
+  icon: string
+  highlights: string[]
+  badge?: string
+}
+
+const projects: Project[] = [
   {
     id: 1,
     title: 'Battery Manufacturing Data Pipeline',

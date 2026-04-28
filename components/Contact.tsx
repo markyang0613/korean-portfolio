@@ -135,7 +135,7 @@ export default function Contact({ lang }: ContactProps) {
                 >
                   <span className="text-xl">💼</span>
                   <span className="font-mono text-sm group-hover:text-[#7c3aed] transition-colors">
-                    linkedin.com/in/markyang0613
+                    linkedin.com/in/joonseoyang/
                   </span>
                   <span className="text-gray-600 group-hover:text-[#7c3aed] text-xs">↗</span>
                 </a>

@@ -1,104 +1,114 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
+
+interface Sparkle {
+  id: number
+  x: number
+  y: number
+  dots: Array<{ angle: number; color: string; dist: number }>
+}
+
+const COLORS = ['#00f5ff', '#7c3aed', '#39ff14', '#00f5ff', '#a855f7']
+
+function makeSparkle(id: number, x: number, y: number): Sparkle {
+  const count = 7
+  const dots = Array.from({ length: count }, (_, i) => ({
+    angle: (360 / count) * i + Math.random() * 20,
+    color: COLORS[i % COLORS.length],
+    dist: 22 + Math.random() * 16,
+  }))
+  return { id, x, y, dots }
+}
 
 export default function CustomCursor() {
-  const cursorRef = useRef<HTMLDivElement>(null)
   const dotRef = useRef<HTMLDivElement>(null)
-  const posRef = useRef({ x: 0, y: 0 })
-  const targetRef = useRef({ x: 0, y: 0 })
+  const [sparkles, setSparkles] = useState<Sparkle[]>([])
+  const idRef = useRef(0)
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
-      targetRef.current = { x: e.clientX, y: e.clientY }
       if (dotRef.current) {
-        dotRef.current.style.transform = `translate(${e.clientX - 4}px, ${e.clientY - 4}px)`
+        dotRef.current.style.left = `${e.clientX}px`
+        dotRef.current.style.top  = `${e.clientY}px`
       }
     }
 
-    const animate = () => {
-      posRef.current.x += (targetRef.current.x - posRef.current.x) * 0.12
-      posRef.current.y += (targetRef.current.y - posRef.current.y) * 0.12
-      if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate(${posRef.current.x - 20}px, ${posRef.current.y - 20}px)`
-      }
-      requestAnimationFrame(animate)
+    const onClick = (e: MouseEvent) => {
+      const s = makeSparkle(idRef.current++, e.clientX, e.clientY)
+      setSparkles(prev => [...prev, s])
+      setTimeout(() => setSparkles(prev => prev.filter(p => p.id !== s.id)), 600)
     }
 
     const onDown = () => {
-      cursorRef.current?.classList.add('scale-50')
-      dotRef.current?.classList.add('scale-150')
+      if (dotRef.current) {
+        dotRef.current.style.transform = 'translate(-50%,-50%) scale(0.5)'
+        dotRef.current.style.background = '#a855f7'
+      }
     }
     const onUp = () => {
-      cursorRef.current?.classList.remove('scale-50')
-      dotRef.current?.classList.remove('scale-150')
+      if (dotRef.current) {
+        dotRef.current.style.transform = 'translate(-50%,-50%) scale(1)'
+        dotRef.current.style.background = '#00f5ff'
+      }
     }
 
-    const onEnterLink = () => {
-      cursorRef.current?.classList.add('scale-150', 'opacity-50')
-    }
-    const onLeaveLink = () => {
-      cursorRef.current?.classList.remove('scale-150', 'opacity-50')
-    }
-
-    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mousemove', onMove, { passive: true })
+    window.addEventListener('click', onClick)
     window.addEventListener('mousedown', onDown)
     window.addEventListener('mouseup', onUp)
 
-    const links = document.querySelectorAll('a, button, [role="button"]')
-    links.forEach(el => {
-      el.addEventListener('mouseenter', onEnterLink)
-      el.addEventListener('mouseleave', onLeaveLink)
-    })
-
-    const raf = requestAnimationFrame(animate)
-
     return () => {
       window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('click', onClick)
       window.removeEventListener('mousedown', onDown)
       window.removeEventListener('mouseup', onUp)
-      cancelAnimationFrame(raf)
     }
   }, [])
 
   return (
     <>
-      {/* Ring */}
+      {/* Glowing dot */}
+      <div ref={dotRef} id="cursor-dot" />
+
+      {/* Sparkle bursts */}
+      {sparkles.map(s => (
+        <SparkleEffect key={s.id} sparkle={s} />
+      ))}
+    </>
+  )
+}
+
+function SparkleEffect({ sparkle }: { sparkle: Sparkle }) {
+  return (
+    <>
+      {/* Expanding ring */}
       <div
-        ref={cursorRef}
-        id="custom-cursor"
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: 40,
-          height: 40,
-          border: '1.5px solid rgba(0,245,255,0.7)',
-          borderRadius: '50%',
-          pointerEvents: 'none',
-          zIndex: 99998,
-          transition: 'transform 0.15s ease, opacity 0.2s, scale 0.2s',
-          mixBlendMode: 'difference',
-        }}
+        className="sparkle-ring"
+        style={{ left: sparkle.x, top: sparkle.y }}
       />
-      {/* Dot */}
-      <div
-        ref={dotRef}
-        id="custom-cursor-dot"
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: 8,
-          height: 8,
-          backgroundColor: '#00f5ff',
-          borderRadius: '50%',
-          pointerEvents: 'none',
-          zIndex: 99999,
-          boxShadow: '0 0 8px #00f5ff',
-          transition: 'scale 0.15s ease',
-        }}
-      />
+      {/* Flying particles */}
+      {sparkle.dots.map((dot, i) => {
+        const rad = (dot.angle * Math.PI) / 180
+        const tx = Math.cos(rad) * dot.dist
+        const ty = Math.sin(rad) * dot.dist
+        return (
+          <div
+            key={i}
+            className="sparkle-dot"
+            style={{
+              left: sparkle.x,
+              top: sparkle.y,
+              background: dot.color,
+              boxShadow: `0 0 6px ${dot.color}`,
+              animationDuration: `${0.45 + Math.random() * 0.15}s`,
+              // CSS custom props for the fly-out direction
+              '--tx': `${tx}px`,
+              '--ty': `${ty}px`,
+            } as React.CSSProperties}
+          />
+        )
+      })}
     </>
   )
 }

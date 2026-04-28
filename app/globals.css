@@ -128,8 +128,8 @@ main {
   animation: sparkle-dot-out 0.55s ease-out forwards;
 }
 @keyframes sparkle-dot-out {
-  0%   { opacity: 1; }
-  100% { opacity: 0; }
+  0%   { opacity: 1; transform: translate(calc(-50% + 0px), calc(-50% + 0px)); }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))); }
 }
 
 @media (max-width: 768px) {
@@ -317,6 +317,7 @@ html.light .glass-dark {
   60% { transform: translate(-1px, 1px); }
   80% { transform: translate(1px, -1px); }
 }
+.animate-glitch { animation: glitch 0.3s steps(1) forwards; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

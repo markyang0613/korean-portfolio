@@ -38,7 +38,7 @@ const QA_KO: Array<{ q: string[]; a: string }> = [
   },
   {
     q: ['경력', '경험', '회사'],
-    a: '주요 경력: 1) LSP USA — 배터리 제조 데이터 파이프라인 구축 (클라우드 + AI 활용). 2) Oakland Natives Give Back — 비영리 데이터 분석 인턴. 3) 한신포차 — 약 1년 서비스직 (팀워크, 고객 응대 역량 개발). 각 경험이 현재의 제 역량을 만들었습니다 💼',
+    a: '주요 경력: 1) LSP USA — 배터리 제조 데이터 파이프라인 구축 (클라우드 + AI 활용). 2) Oakland Natives Give Back — 비영리 데이터 분석 인턴. 3) Avellino Lab — CNN·Vision Transformer로 안암 예측 모델 개발 (88% 정확도). 각 경험이 현재의 제 역량을 만들었습니다 💼',
   },
   {
     q: ['취미', '관심사', '좋아하는 것'],

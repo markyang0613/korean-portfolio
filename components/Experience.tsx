@@ -62,6 +62,21 @@ function ExpCard({ exp, idx, inView, lang }: ExpCardProps) {
       transition={{ duration: 0.7, delay: idx * 0.2 + 0.3 }}
       className="relative grid md:grid-cols-2 mb-12"
     >
+      {/* Dotted connector — bridges card to center dot */}
+      <div
+        className="absolute hidden md:block pointer-events-none"
+        style={{
+          top: '2.5rem',
+          [isLeft ? 'right' : 'left']: '50%',
+          width: '4rem',
+          height: '2px',
+          backgroundImage: `radial-gradient(circle, ${exp.color} 1px, transparent 1px)`,
+          backgroundSize: '8px 2px',
+          backgroundRepeat: 'repeat-x',
+          opacity: 0.7,
+        } as React.CSSProperties}
+      />
+
       {/* Center dot — sits on the grid dividing line */}
       <div className="absolute left-1/2 top-8 -translate-x-1/2 hidden md:block z-10">
         <div

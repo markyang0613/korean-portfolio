@@ -17,11 +17,9 @@ const navItems = [
 interface NavbarProps {
   lang: 'ko' | 'en'
   onLangToggle: () => void
-  theme: 'dark' | 'light'
-  onThemeToggle: () => void
 }
 
-export default function Navbar({ lang, onLangToggle, theme, onThemeToggle }: NavbarProps) {
+export default function Navbar({ lang, onLangToggle }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [active, setActive] = useState('')
   const [menuOpen, setMenuOpen] = useState(false)
@@ -86,15 +84,6 @@ export default function Navbar({ lang, onLangToggle, theme, onThemeToggle }: Nav
 
           {/* Right controls */}
           <div className="flex items-center gap-2">
-            {/* Theme toggle */}
-            <button
-              onClick={onThemeToggle}
-              className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all text-sm"
-              title="테마 변경"
-            >
-              {theme === 'dark' ? '☀️' : '🌙'}
-            </button>
-
             {/* Lang toggle */}
             <button
               onClick={onLangToggle}

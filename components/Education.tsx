@@ -64,7 +64,7 @@ export default function Education({ lang }: EducationProps) {
               <BerkeleyLogo />
               <div>
                 <div className="text-xs font-mono text-[#FDB515] mb-1">
-                  {lang === 'ko' ? '2020 – 2024' : '2020 – 2024'}
+                  {lang === 'ko' ? '2018 – 2025' : '2018 – 2025'}
                 </div>
                 <h3 className="text-xl font-bold text-white">UC Berkeley</h3>
                 <p className="text-[#FDB515] font-semibold mt-0.5">

@@ -176,7 +176,6 @@ const projects = [
     tech: ['BigQuery', 'Python', 'Looker Studio', 'SQL', 'Data Analysis'],
     aiUsage: 85,
     github: null,
-    badge: '준비 중',
     color: '#39ff14',
     icon: '📈',
     highlights: ['BigQuery SQL 집계 파이프라인', '핵심 마켓플레이스 KPI 추적', '이상 탐지 자동화'],

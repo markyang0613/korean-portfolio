@@ -128,7 +128,7 @@ export default function Contact({ lang }: ContactProps) {
               <div>
                 <div className="text-xs text-gray-500 font-mono mb-2">LINKEDIN</div>
                 <a
-                  href="https://linkedin.com/in/markyang0613"
+                  href="https://www.linkedin.com/in/joonseoyang/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors group"
@@ -151,7 +151,7 @@ export default function Contact({ lang }: ContactProps) {
                   </div>
                   <div className="flex items-center gap-2 text-sm text-gray-400">
                     <span>🇺🇸</span>
-                    <span>Oakland, California</span>
+                    <span>Berkeley, California</span>
                   </div>
                 </div>
               </div>

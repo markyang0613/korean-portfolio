@@ -204,8 +204,8 @@ export default function Contact({ lang }: ContactProps) {
         >
           <p>
             {lang === 'ko'
-              ? '양준서 포트폴리오 © 2024 · Next.js + Three.js + Framer Motion · Built with ❤️ & Claude AI'
-              : 'Yang Joon-seo Portfolio © 2024 · Next.js + Three.js + Framer Motion · Built with ❤️ & Claude AI'}
+              ? '양준서 포트폴리오 © 2024 · Next.js + Three.js + Framer Motion'
+              : 'Yang Joon-seo Portfolio © 2024 · Next.js + Three.js + Framer Motion'}
           </p>
         </motion.div>
       </div>

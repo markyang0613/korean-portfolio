@@ -326,3 +326,98 @@ html.light .glass-dark {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   Print / Portfolio PDF Export
+   Open via window.print() — enable "Background graphics" in the
+   browser print dialog to preserve the dark theme.
+═══════════════════════════════════════════════════════════════ */
+@media print {
+
+  /* 1 ── Force background colours + images to print ──────────── */
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 12mm 16mm;
+  }
+
+  /* 2 ── Core reset ───────────────────────────────────────────── */
+  html, body {
+    background: #0a0a0a !important;
+    color: #ffffff !important;
+    cursor: auto !important;
+    overflow: visible !important;
+  }
+
+  /* 3 ── Hide all UI chrome ───────────────────────────────────── */
+  nav,                          /* sticky navbar */
+  canvas,                       /* particle network, constellation */
+  #cursor-dot,
+  #scroll-progress,
+  .sparkle-ring,
+  .sparkle-dot,
+  #ai-chat {                    /* AI chat section */
+    display: none !important;
+  }
+
+  /* 4 ── Typing animation: freeze to static text ─────────────── */
+  .typing-animated         { display: none !important; }
+  .typing-print-static     { display: inline !important; }
+  .typing-cursor::after    { display: none !important; }  /* blinking | */
+
+  /* 5 ── Hero: remove full-viewport height ───────────────────── */
+  #hero {
+    min-height: auto !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  /* 6 ── Page breaks: between sections, not within cards ──────── */
+  section { break-inside: avoid; }
+  .glass  { break-inside: avoid; }
+
+  /* 7 ── Glass keeps dark aesthetic ──────────────────────────── */
+  .glass {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .glass-dark {
+    background: rgba(13, 17, 23, 0.95) !important;
+    border: 1px solid rgba(0, 245, 255, 0.18) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* 8 ── Gradient text → solid cyan (transparent fill = invisible) */
+  .gradient-text,
+  .gradient-text-neon,
+  .gradient-text-full {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: #00f5ff !important;
+    color: #00f5ff !important;
+    animation: none !important;
+  }
+
+  /* 9 ── Flip cards: show front face only ────────────────────── */
+  .flip-card-inner  { transform: none !important; }
+  .flip-card-back   { display: none !important; }
+  .flip-card-front  {
+    position: relative !important;
+    backface-visibility: visible !important;
+    -webkit-backface-visibility: visible !important;
+  }
+
+  /* 10 ── Gradient border glow: off in print ──────────────────── */
+  .gradient-border::before { display: none !important; }
+
+  /* 11 ── Glow box-shadows: simplify ─────────────────────────── */
+  .glow-cyan, .glow-violet, .glow-neon { box-shadow: none !important; }
+}

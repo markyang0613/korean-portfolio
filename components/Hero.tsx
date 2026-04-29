@@ -212,7 +212,14 @@ function TypingText({ strings }: { strings: string[] }) {
   }, [text, deleting, idx, strings, pause])
 
   return (
-    <span className="text-[#00f5ff] typing-cursor font-mono">{text}</span>
+    <>
+      {/* Live typing animation — hidden when printing */}
+      <span className="text-[#00f5ff] typing-cursor font-mono typing-animated">{text}</span>
+      {/* Static fallback shown only in @media print — always 'UC Berkeley 졸업생' */}
+      <span className="text-[#00f5ff] font-mono typing-print-static" style={{ display: 'none' }}>
+        {strings[3]}
+      </span>
+    </>
   )
 }
 
@@ -302,12 +309,12 @@ export default function Hero({ lang }: HeroProps) {
             : 'UC Berkeley Data Science · Cloud Data Pipelines · 10x Faster Dev with AI Tools'}
         </motion.p>
 
-        {/* CTA Buttons */}
+        {/* CTA Buttons — hidden when printing (no interactive elements in PDF) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 0.6 }}
-          className="flex flex-wrap gap-4 justify-center"
+          className="flex flex-wrap gap-4 justify-center print:hidden"
         >
           <button
             onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
@@ -344,12 +351,12 @@ export default function Hero({ lang }: HeroProps) {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator — not meaningful in PDF */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.6, duration: 0.6 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-500"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-500 print:hidden"
       >
         <span className="text-xs tracking-widest uppercase">Scroll</span>
         <motion.div

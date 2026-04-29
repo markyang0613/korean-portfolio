@@ -5,3 +5,13 @@ export function downloadResumePDF() {
   if (typeof window === 'undefined') return
   window.open(RESUME_PDF_URL, '_blank', 'noopener,noreferrer')
 }
+
+/**
+ * Opens the browser print dialog so the user can Save as PDF.
+ * The @media print CSS in globals.css handles layout/hiding.
+ * NOTE: caller should show a "Background graphics" tip for ~1.5s first.
+ */
+export function printPortfolioAsPDF() {
+  if (typeof window === 'undefined') return
+  window.print()
+}

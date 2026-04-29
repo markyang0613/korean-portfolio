@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { downloadResumePDF } from '@/lib/pdfExport'
+import { downloadResumePDF, printPortfolioAsPDF } from '@/lib/pdfExport'
 
 const navItems = [
   { label: '소개', en: 'About', href: '#about' },
@@ -23,6 +23,15 @@ export default function Navbar({ lang, onLangToggle }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [active, setActive] = useState('')
   const [menuOpen, setMenuOpen] = useState(false)
+  const [showPrintTip, setShowPrintTip] = useState(false)
+
+  const handlePortfolioPDF = () => {
+    setShowPrintTip(true)
+    setTimeout(() => {
+      setShowPrintTip(false)
+      printPortfolioAsPDF()
+    }, 1800)
+  }
 
   useEffect(() => {
     const onScroll = () => {
@@ -92,13 +101,23 @@ export default function Navbar({ lang, onLangToggle }: NavbarProps) {
               {lang === 'ko' ? 'EN' : 'KO'}
             </button>
 
-            {/* PDF Button */}
+            {/* Resume PDF */}
             <button
               onClick={downloadResumePDF}
               className="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-lg border border-[#00f5ff] text-[#00f5ff] text-sm font-medium hover:bg-[#00f5ff] hover:text-black transition-all duration-200 glow-cyan"
             >
               <span>📄</span>
               <span>{lang === 'ko' ? '이력서' : 'Resume'}</span>
+            </button>
+
+            {/* Portfolio PDF Save */}
+            <button
+              onClick={handlePortfolioPDF}
+              disabled={showPrintTip}
+              className="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-lg border border-[#7c3aed] text-[#a855f7] text-sm font-medium hover:bg-[#7c3aed] hover:text-white transition-all duration-200 disabled:opacity-60 disabled:cursor-wait"
+            >
+              <span>📥</span>
+              <span>{lang === 'ko' ? '저장' : 'Save PDF'}</span>
             </button>
 
             {/* Hamburger */}
@@ -141,6 +160,47 @@ export default function Navbar({ lang, onLangToggle }: NavbarProps) {
               >
                 📄 {lang === 'ko' ? '이력서 PDF 다운로드' : 'Download Resume PDF'}
               </button>
+              <button
+                onClick={() => { setMenuOpen(false); handlePortfolioPDF() }}
+                disabled={showPrintTip}
+                className="px-4 py-3 rounded-lg border border-[#7c3aed] text-[#a855f7] text-center font-medium disabled:opacity-60"
+              >
+                📥 {lang === 'ko' ? '포트폴리오 PDF 저장' : 'Save Portfolio as PDF'}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Print tip toast — appears for 1.8s before print dialog opens */}
+      <AnimatePresence>
+        {showPrintTip && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[9999] print:hidden"
+            style={{ pointerEvents: 'none' }}
+          >
+            <div
+              className="flex items-start gap-3 px-5 py-4 rounded-2xl text-sm max-w-sm"
+              style={{
+                background: 'rgba(13,17,23,0.97)',
+                border: '1px solid rgba(124,58,237,0.5)',
+                boxShadow: '0 8px 40px rgba(124,58,237,0.25)',
+              }}
+            >
+              <span className="text-xl flex-shrink-0">💡</span>
+              <div>
+                <div className="font-semibold text-white mb-1">
+                  {lang === 'ko' ? '인쇄 창이 곧 열립니다' : 'Print dialog opening soon'}
+                </div>
+                <div className="text-gray-400 text-xs leading-relaxed">
+                  {lang === 'ko'
+                    ? '다크 테마를 유지하려면 인쇄 설정에서 "배경 그래픽(Background graphics)"을 활성화해주세요.'
+                    : 'Enable "Background graphics" in print settings to preserve the dark theme.'}
+                </div>
+              </div>
             </div>
           </motion.div>
         )}

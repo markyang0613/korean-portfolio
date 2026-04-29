@@ -211,7 +211,7 @@ const projects: Project[] = [
     descEn: 'Diagnosed a 3.12% retention rate using the AARRR framework, quantified a 9.3-day carrier bottleneck via DuckDB Medallion Architecture, and validated a +16% sentiment lift through counterfactual A/B simulation (p<0.001).',
     tech: ['DuckDB', 'SQL', 'Python', 'Pandas', 'Seaborn', 'Medallion Architecture'],
     aiUsage: 75,
-    github: null,
+    github: 'https://github.com/markyang0613/olist-marketplace-funnel-analytics.git',
     color: '#f59e0b',
     icon: '📦',
     highlights: ['AARRR 리텐션 분석', 'A/B 시뮬레이션 (p<0.001)', '메달리온 아키텍처'],

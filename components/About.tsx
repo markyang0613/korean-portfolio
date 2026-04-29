@@ -266,7 +266,7 @@ export default function About({ lang }: AboutProps) {
             initial={{ opacity: 0, x: 40 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="glass rounded-2xl p-4 h-[420px] relative overflow-hidden"
+            className="glass rounded-2xl p-4 h-[420px] relative overflow-hidden print:hidden"
           >
             <div className="absolute inset-0 opacity-5"
               style={{ backgroundImage: 'radial-gradient(circle, #00f5ff 1px, transparent 1px)', backgroundSize: '30px 30px' }}

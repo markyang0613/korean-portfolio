@@ -329,63 +329,99 @@ html.light .glass-dark {
 
 /* ═══════════════════════════════════════════════════════════════
    Print / Portfolio PDF Export
-   Open via window.print() — enable "Background graphics" in the
-   browser print dialog to preserve the dark theme.
+   Open via window.print().
+   IMPORTANT: enable "Background graphics" in the print dialog.
+   NOTE: Framer Motion inline styles are cleared in JS (beforeprint
+   event in Navbar.tsx) — CSS alone cannot override FM's layout
+   width:0px because inline styles beat CSS even with !important
+   for width/height (only transform/opacity can be overridden).
 ═══════════════════════════════════════════════════════════════ */
 @media print {
 
-  /* 1 ── Force background colours + images to print ──────────── */
-  *, *::before, *::after {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-
+  /* 1 ── Page setup ───────────────────────────────────────────── */
   @page {
     size: A4;
     margin: 12mm 16mm;
   }
 
-  /* 2 ── Core reset ───────────────────────────────────────────── */
+  /* 2 ── Force backgrounds + kill all animations ──────────────── */
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    /* Belt-and-suspenders on top of the JS beforeprint clear */
+    animation: none !important;
+    transition: none !important;
+    /* Override any remaining FM transform/opacity inline styles */
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  /* 3 ── Core layout ──────────────────────────────────────────── */
   html, body {
     background: #0a0a0a !important;
     color: #ffffff !important;
     cursor: auto !important;
     overflow: visible !important;
+    width: 100% !important;
   }
 
-  /* 3 ── Hide all UI chrome ───────────────────────────────────── */
-  nav,                          /* sticky navbar */
-  canvas,                       /* particle network, constellation */
-  #cursor-dot,
-  #scroll-progress,
-  .sparkle-ring,
-  .sparkle-dot,
-  #ai-chat {                    /* AI chat section */
-    display: none !important;
+  main {
+    overflow: visible !important;
   }
 
-  /* 4 ── Typing animation: freeze to static text ─────────────── */
-  .typing-animated         { display: none !important; }
-  .typing-print-static     { display: inline !important; }
-  .typing-cursor::after    { display: none !important; }  /* blinking | */
+  section {
+    overflow: visible !important;
+    min-height: auto !important;
+    height: auto !important;
+    /* Natural page breaks — break-inside:avoid caused 20 pages of whitespace */
+    break-inside: auto;
+  }
 
-  /* 5 ── Hero: remove full-viewport height ───────────────────── */
+  /* 4 ── Section inner: fill the print column width ───────────── */
+  .section-inner {
+    max-width: 100% !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    overflow: visible !important;
+  }
+
+  /* 5 ── Text overflow fix ─────────────────────────────────────── */
+  p, h1, h2, h3, h4, h5, h6, span, div {
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    max-width: 100% !important;
+  }
+
+  /* 6 ── Hero: shrink to content height ──────────────────────── */
   #hero {
     min-height: auto !important;
     padding-top: 2rem !important;
     padding-bottom: 2rem !important;
   }
 
-  /* 6 ── Page breaks: between sections, not within cards ──────── */
-  section { break-inside: avoid; }
-  .glass  { break-inside: avoid; }
+  /* 7 ── Hide all UI chrome ───────────────────────────────────── */
+  nav,
+  canvas,
+  #cursor-dot,
+  #scroll-progress,
+  .sparkle-ring,
+  .sparkle-dot,
+  #ai-chat {
+    display: none !important;
+  }
 
-  /* 7 ── Glass keeps dark aesthetic ──────────────────────────── */
+  /* 8 ── Typing animation: static text only ───────────────────── */
+  .typing-animated      { display: none !important; }
+  .typing-print-static  { display: inline !important; }
+  .typing-cursor::after { display: none !important; }
+
+  /* 9 ── Glass keeps dark aesthetic ───────────────────────────── */
   .glass {
     background: rgba(255, 255, 255, 0.04) !important;
     border: 1px solid rgba(255, 255, 255, 0.12) !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
+    break-inside: avoid;
   }
   .glass-dark {
     background: rgba(13, 17, 23, 0.95) !important;
@@ -394,7 +430,7 @@ html.light .glass-dark {
     -webkit-backdrop-filter: none !important;
   }
 
-  /* 8 ── Gradient text → solid cyan (transparent fill = invisible) */
+  /* 10 ── Gradient text → solid cyan (transparent fill = invisible on print) */
   .gradient-text,
   .gradient-text-neon,
   .gradient-text-full {
@@ -403,21 +439,18 @@ html.light .glass-dark {
     background-clip: unset !important;
     -webkit-text-fill-color: #00f5ff !important;
     color: #00f5ff !important;
-    animation: none !important;
   }
 
-  /* 9 ── Flip cards: show front face only ────────────────────── */
-  .flip-card-inner  { transform: none !important; }
-  .flip-card-back   { display: none !important; }
-  .flip-card-front  {
+  /* 11 ── Flip cards: show front face only ────────────────────── */
+  .flip-card-inner { transform: none !important; }
+  .flip-card-back  { display: none !important; }
+  .flip-card-front {
     position: relative !important;
     backface-visibility: visible !important;
     -webkit-backface-visibility: visible !important;
   }
 
-  /* 10 ── Gradient border glow: off in print ──────────────────── */
-  .gradient-border::before { display: none !important; }
-
-  /* 11 ── Glow box-shadows: simplify ─────────────────────────── */
-  .glow-cyan, .glow-violet, .glow-neon { box-shadow: none !important; }
+  /* 12 ── Decorative chrome: off ──────────────────────────────── */
+  .gradient-border::before              { display: none !important; }
+  .glow-cyan, .glow-violet, .glow-neon  { box-shadow: none !important; }
 }

@@ -140,12 +140,12 @@ export default function Skills({ lang }: SkillsProps) {
           <div className="mt-3 h-0.5 w-20 bg-gradient-to-r from-[#00f5ff] to-[#7c3aed] mx-auto" />
         </motion.div>
 
-        {/* Category filter */}
+        {/* Category filter — hidden in PDF (interactive only) */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.2 }}
-          className="flex flex-wrap gap-2 justify-center mb-10"
+          className="flex flex-wrap gap-2 justify-center mb-10 print:hidden"
         >
           <button
             onClick={() => setActiveCategory('all')}

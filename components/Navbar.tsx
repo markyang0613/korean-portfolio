@@ -27,6 +27,31 @@ export default function Navbar({ lang, onLangToggle }: NavbarProps) {
 
   const handlePortfolioPDF = () => {
     setShowPrintTip(true)
+
+    /**
+     * Framer Motion keeps elements in their `initial` state (opacity:0,
+     * transform:translateX(-40px), or layout-computed width:0px) for
+     * sections the user hasn't scrolled to.  CSS !important can override
+     * transform/opacity but NOT inline `width`/`height` set by FM's layout
+     * feature — those cause text to wrap character-by-character.
+     *
+     * The `beforeprint` event fires synchronously right before the browser
+     * captures the DOM snapshot.  We strip every inline animation property
+     * here so @media print CSS (not FM) owns the layout.
+     */
+    const clearFMStyles = () => {
+      document.querySelectorAll<HTMLElement>('*').forEach(el => {
+        const s = el.style
+        if (s.transform)                      s.transform  = ''
+        if (s.opacity)                        s.opacity    = ''
+        if (s.width  && s.width.includes('px'))  s.width  = ''
+        if (s.height && s.height.includes('px')) s.height = ''
+        if (s.visibility)                     s.visibility = ''
+      })
+    }
+
+    window.addEventListener('beforeprint', clearFMStyles, { once: true })
+
     setTimeout(() => {
       setShowPrintTip(false)
       printPortfolioAsPDF()

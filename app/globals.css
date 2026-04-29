@@ -401,6 +401,12 @@ html.light .glass-dark {
     padding-bottom: 2rem !important;
   }
 
+  #education,
+  #contact {
+    break-before: page !important;
+    page-break-before: always !important;
+  }
+
   /* 7 ── Hide all UI chrome ───────────────────────────────────── */
   nav,
   canvas,
@@ -455,4 +461,44 @@ html.light .glass-dark {
   /* 12 ── Decorative chrome: off ──────────────────────────────── */
   .gradient-border::before              { display: none !important; }
   .glow-cyan, .glow-violet, .glow-neon  { box-shadow: none !important; }
+
+  /* 13 ── Timeline layout: stack vertically for PDF ───────────── */
+  .timeline-left, .timeline-right {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  [class*="timeline-"] {
+    justify-content: center !important;
+  }
+  /* Convert grid timeline to stacked layout for PDF */
+  [class*="grid md:grid-cols-2"] {
+    display: block !important;
+    grid-template-columns: none !important;
+  }
+  /* Convert project grid to single column for PDF */
+  [class*="grid-cols-1 md:grid-cols-2 lg:grid-cols-3"] {
+    display: block !important;
+    grid-template-columns: none !important;
+  }
+  /* Convert skills grid to single column for PDF */
+  [class*="grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"] {
+    display: block !important;
+    grid-template-columns: none !important;
+  }
+  /* Convert counter stats grid to single column for PDF */
+  [class*="grid-cols-3"] {
+    display: block !important;
+    grid-template-columns: none !important;
+  }
+  /* Hide timeline center line and dots in PDF */
+  .timeline-left::before,
+  .timeline-right::before,
+  .timeline-left::after,
+  .timeline-right::after {
+    display: none !important;
+  }
+  /* Hide dotted timeline connectors without removing all inline background art */
+  [style*="background-size: 8px 2px"] {
+    display: none !important;
+  }
 }

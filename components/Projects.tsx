@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
+import OlistCaseStudy from './OlistCaseStudy'
 
 interface Project {
   id: number
@@ -19,6 +20,7 @@ interface Project {
   icon: string
   highlights: string[]
   badge?: string
+  detailView?: boolean
 }
 
 const projects: Project[] = [
@@ -198,6 +200,24 @@ const projects: Project[] = [
     icon: '📈',
     highlights: ['BigQuery SQL 집계 파이프라인', '핵심 마켓플레이스 KPI 추적', '이상 탐지 자동화'],
   },
+  {
+    id: 12,
+    title: 'Olist Marketplace: Logistics Funnel & Retention Analysis',
+    titleKo: 'Olist 마켓플레이스: 물류 퍼널 & 리텐션 분석',
+    category: 'data',
+    categoryLabel: '데이터분석',
+    size: 'large',
+    descKo: 'AARRR 프레임워크로 3.12% 리텐션 문제를 진단하고, 9.3일 배송 병목이 재구매를 저해함을 DuckDB 메달리온 아키텍처로 정량화했습니다. 반사실적 A/B 시뮬레이션으로 물류 최적화 시 감성 점수 +16% 향상 가능성을 통계적으로 검증했습니다 (p<0.001).',
+    descEn: 'Diagnosed a 3.12% retention rate using the AARRR framework, quantified a 9.3-day carrier bottleneck via DuckDB Medallion Architecture, and validated a +16% sentiment lift through counterfactual A/B simulation (p<0.001).',
+    tech: ['DuckDB', 'SQL', 'Python', 'Pandas', 'Seaborn', 'Medallion Architecture'],
+    aiUsage: 75,
+    github: null,
+    color: '#f59e0b',
+    icon: '📦',
+    highlights: ['AARRR 리텐션 분석', 'A/B 시뮬레이션 (p<0.001)', '메달리온 아키텍처'],
+    badge: '🎯 당근 DA 케이스',
+    detailView: true,
+  },
 ]
 
 const filterTabs = [
@@ -227,9 +247,10 @@ interface ProjectCardProps {
   project: typeof projects[0]
   featured?: boolean
   lang: 'ko' | 'en'
+  onSelect?: () => void
 }
 
-function ProjectCard({ project, featured, lang }: ProjectCardProps) {
+function ProjectCard({ project, featured, lang, onSelect }: ProjectCardProps) {
   return (
     <motion.div
       layout
@@ -273,9 +294,12 @@ function ProjectCard({ project, featured, lang }: ProjectCardProps) {
       </div>
 
       {/* Status badge */}
-      {'badge' in project && project.badge && (
-        <span className="self-start text-xs px-2 py-0.5 rounded-full bg-white/5 text-gray-500 font-mono">
-          🚧 {project.badge}
+      {project.badge && (
+        <span
+          className="self-start text-xs px-2.5 py-1 rounded-full font-mono font-medium"
+          style={{ background: `${project.color}18`, color: project.color }}
+        >
+          {project.badge}
         </span>
       )}
 
@@ -308,6 +332,21 @@ function ProjectCard({ project, featured, lang }: ProjectCardProps) {
       <div className="pt-3 border-t border-white/5">
         <AIUsageBadge level={project.aiUsage} />
       </div>
+
+      {/* Case study CTA — only for detailView projects */}
+      {project.detailView && onSelect && (
+        <button
+          onClick={onSelect}
+          className="w-full py-2.5 rounded-xl text-sm font-bold transition-all duration-200 hover:opacity-90 active:scale-95"
+          style={{
+            background: `linear-gradient(135deg, ${project.color}25, ${project.color}15)`,
+            border: `1px solid ${project.color}50`,
+            color: project.color,
+          }}
+        >
+          {lang === 'ko' ? '케이스 스터디 전체 보기 →' : 'View Full Case Study →'}
+        </button>
+      )}
     </motion.div>
   )
 }
@@ -318,11 +357,17 @@ export default function Projects({ lang }: ProjectsProps) {
   const ref = useRef<HTMLElement>(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
   const [filter, setFilter] = useState('all')
+  const [caseStudyOpen, setCaseStudyOpen] = useState(false)
 
   const filtered = filter === 'all' ? projects : projects.filter(p => p.category === filter)
 
   return (
     <section id="projects" ref={ref} className="w-full py-24">
+      {/* Olist case study modal */}
+      {caseStudyOpen && (
+        <OlistCaseStudy lang={lang} onClose={() => setCaseStudyOpen(false)} />
+      )}
+
       <div className="section-inner">
       {/* Header */}
       <motion.div
@@ -371,6 +416,7 @@ export default function Projects({ lang }: ProjectsProps) {
               project={project}
               featured={i === 0 && filter === 'all'}
               lang={lang}
+              onSelect={project.detailView ? () => setCaseStudyOpen(true) : undefined}
             />
           ))}
         </AnimatePresence>

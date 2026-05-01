@@ -218,12 +218,29 @@ const projects: Project[] = [
     badge: '🎯 당근 DA 케이스',
     detailView: true,
   },
+  {
+    id: 13,
+    title: 'Bangkok Airbnb 2025 Cohort & Retention Analysis',
+    titleKo: '방콕 Airbnb 2025 코호트 & 리텐션 분석',
+    category: 'cohort',
+    categoryLabel: '코호트분석',
+    size: 'large',
+    descKo: 'Inside Airbnb에서 스크랩한 방콕 2025년 매물 데이터를 CSV 통합·데이터 타입 정제·결측치 처리·피처 엔지니어링으로 전처리 후 세 가지 코호트 분석 수행. 48개 지역별 누적 매출 비교, 슈퍼호스트 vs 일반 호스트 리뷰 패턴 검증(Mann-Whitney U, p=3.27×10⁻¹¹²), 활동 최근성 기반 이탈 위험도 4단계 등급화(고위험 33.4%).',
+    descEn: 'Processed Bangkok Inside Airbnb 2025 scraped data through CSV integration, data type correction, null handling, and feature engineering — then ran three cohort analyses: neighborhood revenue ranking (48 regions), superhost vs. regular host review patterns (Mann-Whitney U, p=3.27×10⁻¹¹²), and 4-tier churn risk scoring by review recency (33.4% high-risk).',
+    tech: ['Python', 'Pandas', 'Matplotlib', 'NumPy', 'SciPy', 'EDA'],
+    aiUsage: 68,
+    github: 'https://github.com/markyang0613/airbnb_bangkok_2025_analysis',
+    color: '#38bdf8',
+    icon: '🏠',
+    highlights: ['지역 코호트 매출 순위 (48개 지역)', '슈퍼호스트 리뷰 +54~89% 통계 검증', '이탈 위험 4단계 등급 (고위험 33.4%)'],
+  },
 ]
 
 const filterTabs = [
   { id: 'all', label: '전체', en: 'All' },
   { id: 'data-engineering', label: '데이터엔지니어링', en: 'Data Engineering' },
   { id: 'data', label: '데이터분석', en: 'Data Analysis' },
+  { id: 'cohort', label: '코호트분석', en: 'Cohort Analysis' },
   { id: 'ai', label: 'AI', en: 'AI' },
 ]
 

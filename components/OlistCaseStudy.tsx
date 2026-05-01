@@ -695,7 +695,7 @@ export default function OlistCaseStudy({ onClose, lang: initLang }: OlistCaseStu
                 </div>
               </div>
               <a
-                href="https://github.com/markyang0613/marketplace-analytics"
+                href="https://github.com/markyang0613/olist-marketplace-funnel-analytics"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-semibold hover:text-white transition-colors flex items-center gap-1"

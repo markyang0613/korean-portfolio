@@ -8,20 +8,35 @@ const KONAMI = [
   'ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a',
 ]
 
+interface Particle {
+  left: number
+  top: number
+  duration: number
+  delay: number
+}
+
+function generateParticles(count: number): Particle[] {
+  return Array.from({ length: count }, () => ({
+    left: Math.random() * 100,
+    top: Math.random() * 100,
+    duration: 2 + Math.random() * 2,
+    delay: Math.random() * 0.5,
+  }))
+}
+
 export default function KonamiEgg() {
-  const [seq, setSeq] = useState<string[]>([])
   const [show, setShow] = useState(false)
+  const [particles, setParticles] = useState<Particle[]>([])
 
   useEffect(() => {
+    let seq: string[] = []
     const handler = (e: KeyboardEvent) => {
-      setSeq(prev => {
-        const next = [...prev, e.key].slice(-10)
-        if (next.join(',') === KONAMI.join(',')) {
-          setShow(true)
-          return []
-        }
-        return next
-      })
+      seq = [...seq, e.key].slice(-10)
+      if (seq.join(',') === KONAMI.join(',')) {
+        setShow(true)
+        setParticles(generateParticles(20))
+        seq = []
+      }
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
@@ -64,7 +79,7 @@ export default function KonamiEgg() {
           </motion.div>
 
           {/* Particles */}
-          {Array.from({ length: 20 }).map((_, i) => (
+          {particles.map((p, i) => (
             <motion.div
               key={i}
               style={{
@@ -73,8 +88,8 @@ export default function KonamiEgg() {
                 height: 8,
                 borderRadius: '50%',
                 background: ['#00f5ff','#7c3aed','#39ff14'][i % 3],
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
+                left: `${p.left}%`,
+                top: `${p.top}%`,
               }}
               animate={{
                 y: [0, -200, 0],
@@ -82,8 +97,8 @@ export default function KonamiEgg() {
                 scale: [0, 1.5, 0],
               }}
               transition={{
-                duration: 2 + Math.random() * 2,
-                delay: Math.random() * 0.5,
+                duration: p.duration,
+                delay: p.delay,
                 repeat: Infinity,
               }}
             />

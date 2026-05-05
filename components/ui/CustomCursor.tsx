@@ -6,7 +6,7 @@ interface Sparkle {
   id: number
   x: number
   y: number
-  dots: Array<{ angle: number; color: string; dist: number }>
+  dots: Array<{ angle: number; color: string; dist: number; duration: number }>
 }
 
 const COLORS = ['#00f5ff', '#7c3aed', '#39ff14', '#00f5ff', '#a855f7']
@@ -17,6 +17,7 @@ function makeSparkle(id: number, x: number, y: number): Sparkle {
     angle: (360 / count) * i + Math.random() * 20,
     color: COLORS[i % COLORS.length],
     dist: 22 + Math.random() * 16,
+    duration: 0.45 + Math.random() * 0.15,
   }))
   return { id, x, y, dots }
 }
@@ -101,7 +102,7 @@ function SparkleEffect({ sparkle }: { sparkle: Sparkle }) {
               top: sparkle.y,
               background: dot.color,
               boxShadow: `0 0 6px ${dot.color}`,
-              animationDuration: `${0.45 + Math.random() * 0.15}s`,
+              animationDuration: `${dot.duration}s`,
               // CSS custom props for the fly-out direction
               '--tx': `${tx}px`,
               '--ty': `${ty}px`,

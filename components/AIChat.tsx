@@ -81,6 +81,10 @@ const QA_EN: Array<{ q: string[]; a: string }> = [
   },
 ]
 
+function getTypingDelay(): number {
+  return 800 + Math.random() * 600
+}
+
 function getBotResponse(input: string, lang: 'ko' | 'en'): string {
   const lower = input.toLowerCase()
   const qa = lang === 'ko' ? QA_KO : QA_EN
@@ -116,12 +120,13 @@ export default function AIChat({ lang }: AIChatProps) {
       text: lang === 'ko'
         ? '안녕하세요! 저는 양준서에 대해 뭐든 알고 있는 AI 어시스턴트입니다 🤖 궁금한 점을 자유롭게 물어보세요!'
         : "Hi! I'm an AI assistant who knows everything about Mark (Yang Joon-seo) 🤖 Ask me anything!",
-      ts: Date.now(),
+      ts: 0,
     },
   ])
   const [input, setInput] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
+  const msgIdRef = useRef(0)
   const suggested = lang === 'ko' ? SUGGESTED_KO : SUGGESTED_EN
 
   useEffect(() => {
@@ -130,16 +135,16 @@ export default function AIChat({ lang }: AIChatProps) {
 
   const sendMessage = (text: string) => {
     if (!text.trim()) return
-    const userMsg: Message = { role: 'user', text: text.trim(), ts: Date.now() }
+    const userMsg: Message = { role: 'user', text: text.trim(), ts: ++msgIdRef.current }
     setMessages(prev => [...prev, userMsg])
     setInput('')
     setIsTyping(true)
 
     setTimeout(() => {
       const response = getBotResponse(text, lang)
-      setMessages(prev => [...prev, { role: 'bot', text: response, ts: Date.now() }])
+      setMessages(prev => [...prev, { role: 'bot', text: response, ts: ++msgIdRef.current }])
       setIsTyping(false)
-    }, 800 + Math.random() * 600)
+    }, getTypingDelay())
   }
 
   return (

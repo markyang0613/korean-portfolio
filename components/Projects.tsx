@@ -234,6 +234,22 @@ const projects: Project[] = [
     icon: '🏠',
     highlights: ['지역 코호트 매출 순위 (48개 지역)', '슈퍼호스트 리뷰 +54~89% 통계 검증', '이탈 위험 4단계 등급 (고위험 33.4%)'],
   },
+  {
+    id: 14,
+    title: 'yjsprompt — AI Prompt Optimizer',
+    titleKo: 'yjsprompt — AI 프롬프트 최적화 도구',
+    category: 'ai',
+    categoryLabel: 'AI',
+    size: 'medium',
+    descKo: '자연어를 강력한 AI 프롬프트로 즉시 변환하는 Chrome 사이드패널 확장 프로그램. General, Coding, Writing, Analysis, Brainstorming, Research 6가지 모드를 지원하며, Groq(Llama 3.3 70B) 기반 무료 프록시 서버를 통해 API 키 노출 없이 누구나 사용 가능합니다.',
+    descEn: 'Chrome side-panel extension that instantly converts natural language into optimized AI prompts. Supports 6 modes and routes through a free Groq-backed Vercel proxy — no API key required for end users.',
+    tech: ['JavaScript', 'Chrome Extension MV3', 'Vercel', 'Groq API', 'Llama 3.3 70B', 'Node.js'],
+    aiUsage: 92,
+    github: 'https://github.com/markyang0613/yjsprompt',
+    color: '#39ff14',
+    icon: '⚡',
+    highlights: ['6가지 프롬프트 최적화 모드', 'Groq 무료 API (14,400회/일)', 'API 키 불필요'],
+  },
 ]
 
 const filterTabs = [

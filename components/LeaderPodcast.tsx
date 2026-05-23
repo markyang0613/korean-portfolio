@@ -16,12 +16,24 @@ const getEpisodesPath = () => {
     : '/episodes.json'
 }
 
+type PodcastLang = 'en' | 'ko' | 'es' | 'ja' | 'zh' | 'fr'
+
+const PODCAST_LANGS: { code: PodcastLang; flag: string; label: string }[] = [
+  { code: 'en', flag: '🇺🇸', label: 'EN' },
+  { code: 'ko', flag: '🇰🇷', label: 'KO' },
+  { code: 'es', flag: '🇪🇸', label: 'ES' },
+  { code: 'ja', flag: '🇯🇵', label: 'JA' },
+  { code: 'zh', flag: '🇨🇳', label: 'ZH' },
+  { code: 'fr', flag: '🇫🇷', label: 'FR' },
+]
+
 interface Episode {
   title: string
   description: string
   url: string
   pub_date: string
   file_size: number
+  versions?: Record<string, string>
 }
 
 interface Props { lang: 'ko' | 'en' }
@@ -51,6 +63,7 @@ export default function LeaderPodcast({ lang }: Props) {
   const [playing, setPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
+  const [podcastLang, setPodcastLang] = useState<PodcastLang>('en')
 
   useEffect(() => {
     fetch(getEpisodesPath())
@@ -62,6 +75,7 @@ export default function LeaderPodcast({ lang }: Props) {
   const current = episodes[activeIdx]
   const headlines = current?.description.split(' | ').filter(Boolean) ?? []
   const progress = duration ? (currentTime / duration) * 100 : 0
+  const audioUrl = current?.versions?.[podcastLang] ?? current?.url ?? ''
 
   const togglePlay = useCallback(() => {
     const audio = audioRef.current
@@ -82,6 +96,14 @@ export default function LeaderPodcast({ lang }: Props) {
   const switchEpisode = (idx: number) => {
     if (idx === activeIdx) return
     setActiveIdx(idx)
+    setPlaying(false)
+    setCurrentTime(0)
+    setDuration(0)
+  }
+
+  const switchPodcastLang = (code: PodcastLang) => {
+    if (code === podcastLang) return
+    setPodcastLang(code)
     setPlaying(false)
     setCurrentTime(0)
     setDuration(0)
@@ -196,12 +218,41 @@ export default function LeaderPodcast({ lang }: Props) {
               {/* Hidden audio element */}
               <audio
                 ref={audioRef}
-                src={current.url}
+                src={audioUrl}
                 preload="none"
                 onTimeUpdate={() => audioRef.current && setCurrentTime(audioRef.current.currentTime)}
                 onLoadedMetadata={() => audioRef.current && setDuration(audioRef.current.duration)}
                 onEnded={() => setPlaying(false)}
               />
+
+              {/* Language selector */}
+              <div className="flex flex-col gap-2">
+                <p className="text-xs font-mono text-gray-500 uppercase tracking-widest">
+                  {lang === 'ko' ? '언어 선택' : 'Language'}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {PODCAST_LANGS.map(({ code, flag, label }) => {
+                    const available = !!(current?.versions?.[code] || code === 'en')
+                    const active = podcastLang === code
+                    return (
+                      <button
+                        key={code}
+                        onClick={() => switchPodcastLang(code)}
+                        disabled={!available}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
+                        style={{
+                          background: active ? 'rgba(57,255,20,0.12)' : 'rgba(255,255,255,0.04)',
+                          border: active ? '1px solid rgba(57,255,20,0.5)' : '1px solid rgba(255,255,255,0.1)',
+                          color: active ? '#39ff14' : '#9ca3af',
+                        }}
+                      >
+                        <span>{flag}</span>
+                        <span>{label}</span>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
 
               {/* Controls */}
               <div className="flex flex-col gap-3 mt-auto">

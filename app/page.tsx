@@ -8,6 +8,7 @@ import Skills from '@/components/Skills'
 import Experience from '@/components/Experience'
 import Projects from '@/components/Projects'
 import Education from '@/components/Education'
+import LeaderPodcast from '@/components/LeaderPodcast'
 import AIChat from '@/components/AIChat'
 import Contact from '@/components/Contact'
 import CustomCursor from '@/components/ui/CustomCursor'
@@ -34,6 +35,7 @@ export default function Page() {
         <Skills lang={lang} />
         <Experience lang={lang} />
         <Projects lang={lang} />
+        <LeaderPodcast lang={lang} />
         <Education lang={lang} />
         <AIChat lang={lang} />
         <Contact lang={lang} />

@@ -9,6 +9,7 @@ const navItems = [
   { label: '기술', en: 'Skills', href: '#skills' },
   { label: '경력', en: 'Experience', href: '#experience' },
   { label: '프로젝트', en: 'Projects', href: '#projects' },
+  { label: '팟캐스트', en: 'Podcast', href: '#leader-podcast' },
   { label: '학력', en: 'Education', href: '#education' },
   { label: 'AI 챗', en: 'AI Chat', href: '#ai-chat' },
   { label: '연락', en: 'Contact', href: '#contact' },

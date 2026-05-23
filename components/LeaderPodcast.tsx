@@ -3,7 +3,18 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { motion, useInView } from 'framer-motion'
 
-const LEADER_BASE_URL = process.env.NEXT_PUBLIC_LEADER_R2_URL ?? 'https://pub-dbab1e0013ed4466bdcf71d438319ead.r2.dev'
+// Audio files still stream directly from R2 (audio elements don't enforce CORS).
+// The episodes manifest is served same-origin from public/episodes.json to avoid CORS.
+const LEADER_BASE_URL = 'https://pub-dbab1e0013ed4466bdcf71d438319ead.r2.dev'
+
+// GitHub Pages serves the app under /korean-portfolio/; Vercel serves it at root.
+// Detect at runtime so we always fetch episodes.json from the same origin.
+const getEpisodesPath = () => {
+  if (typeof window === 'undefined') return '/episodes.json'
+  return window.location.pathname.startsWith('/korean-portfolio')
+    ? '/korean-portfolio/episodes.json'
+    : '/episodes.json'
+}
 
 interface Episode {
   title: string
@@ -42,7 +53,7 @@ export default function LeaderPodcast({ lang }: Props) {
   const [duration, setDuration] = useState(0)
 
   useEffect(() => {
-    fetch(`${LEADER_BASE_URL}/episodes.json`)
+    fetch(getEpisodesPath())
       .then(r => { if (!r.ok) throw new Error(); return r.json() })
       .then((data: Episode[]) => { setEpisodes(data); setStatus('ok') })
       .catch(() => setStatus('error'))
@@ -126,7 +137,7 @@ export default function LeaderPodcast({ lang }: Props) {
                 : 'Podcast pipeline not yet live. Check out the source on GitHub below.'}
             </p>
             <a
-              href="https://github.com/markyang0613/leader-podcast"
+              href="https://github.com/markyang0613/leader_podcast"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-mono text-[#39ff14] transition-all hover:bg-[#39ff14]/10"
